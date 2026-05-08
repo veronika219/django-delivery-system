@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<!-- FEATURES -->
+<div class="container mt-5">
+
+  <div class="row text-center">
+
+    <div class="col-md-4 mb-4">
+      <h4>Fast Delivery</h4>
+      <p>Your food arrives hot and fresh in no time.</p>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <h4>Fresh Ingredients</h4>
+      <p>We cook every dish with high-quality products.</p>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <h4>Easy Ordering</h4>
+      <p>Simple and quick ordering process online.</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- CTA SECTION -->
+<div class="container mt-4 mb-5">
+
+  <div class="row justify-content-center">
+
+    <div class="col-md-8 text-center bg-light p-5 rounded shadow">
+
+      <h3>Hungry?</h3>
+
+      <p>
+        Explore our menu and order your favorite dishes now.
+      </p>
+
+      <a href="{% url 'menu' %}" class="btn btn-outline-primary btn-lg">
+        Go to Menu
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}
