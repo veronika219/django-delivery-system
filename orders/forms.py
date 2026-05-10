@@ -10,6 +10,7 @@ class CheckoutForm(forms.ModelForm):
             'name',
             'phone',
             'address',
+            'comment',
             'delivery_type',
             'payment_method'
         ]
