@@ -12,5 +12,5 @@ urlpatterns = [
     path('ajax/increase/<int:product_id>/', ajax_increase, name='ajax_increase'),
     path('ajax/decrease/<int:product_id>/', ajax_decrease, name='ajax_decrease'),
 
-    path('cart/ajax/remove/<int:product_id>/', ajax_remove, name='ajax_remove')
+    path('ajax/remove/<int:product_id>/', ajax_remove, name='ajax_remove')
 ]

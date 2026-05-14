@@ -120,7 +120,7 @@ def ajax_remove(request, product_id):
 
     cart = Cart(request)
     cart.remove(product_id)
-
+    print("REMOVE HIT:", product_id)
     total_items = cart.get_total_items()
 
     return JsonResponse({
