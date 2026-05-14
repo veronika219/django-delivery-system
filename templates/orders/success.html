@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="text-center">
+
+        <div class="success-icon mb-4">
+            ✓
+        </div>
+
+        <h1 class="fw-bold mb-4">
+            Замовлення успішно оформлено
+        </h1>
+
+        <p class="lead mb-5">
+
+            Дякуємо за ваше замовлення
+
+        </p>
+
+        <a
+                href="{% url 'menu' %}"
+                class="btn btn-dark btn-lg"
+        >
+            Повернутись до меню
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

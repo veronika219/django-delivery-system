@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <h1 class="fw-bold mb-5">
+        Driver Dashboard
+    </h1>
+
+    <div class="row g-4">
+
+        {% for order in orders %}
+
+            <div class="col-lg-6">
+
+                <div class="card border-0 shadow-sm">
+
+                    <div class="card-body">
+
+                        <h4 class="fw-bold mb-3">
+                            Замовлення #{{ order.id }}
+                        </h4>
+
+                        <p>
+                            <strong>
+                                Ім’я:
+                            </strong>
+
+                            {{ order.name }}
+                        </p>
+
+                        <p>
+                            <strong>
+                                Телефон:
+                            </strong>
+
+                            {{ order.phone }}
+                        </p>
+
+                        <p>
+                            <strong>
+                                Адреса:
+                            </strong>
+
+                            {{ order.address }}
+                        </p>
+
+                        <p>
+                            <strong>
+                                Сума:
+                            </strong>
+
+                            {{ order.total_price }} грн
+                        </p>
+
+                        <a
+                                href="{% url 'accept_delivery' order.id %}"
+                                class="btn btn-dark"
+                        >
+                            Прийняти
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

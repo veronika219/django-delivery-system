@@ -1,6 +1,16 @@
 from django.urls import path
-from cart.views import add_to_cart
-
-path(
-    'cart/add/<int:product_id>/', add_to_cart, name="add_to_cart"
+from .views import (
+    cart_detail,
+    ajax_remove,
+    ajax_increase,
+    ajax_decrease
 )
+
+urlpatterns = [
+    path('', cart_detail, name='cart'),
+
+    path('ajax/increase/<int:product_id>/', ajax_increase, name='ajax_increase'),
+    path('ajax/decrease/<int:product_id>/', ajax_decrease, name='ajax_decrease'),
+
+    path('cart/ajax/remove/<int:product_id>/', ajax_remove, name='ajax_remove')
+]

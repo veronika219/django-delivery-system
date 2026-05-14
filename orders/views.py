@@ -1,19 +1,29 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import CheckoutForm
-from .models import OrderItem
+from .models import Order, OrderItem
 from cart.cart import Cart
-from menu.models import Product
+
 
 def checkout(request):
+
     cart = Cart(request)
 
     if request.method == 'POST':
+
         form = CheckoutForm(request.POST)
 
         if form.is_valid():
-            order = form.save()
+
+            order = form.save(commit=False)
+
+            if request.user.is_authenticated:
+                order.customer = request.user
+
+            order.save()
 
             for product in cart.get_products():
+
                 OrderItem.objects.create(
                     order=order,
                     product=product,
@@ -22,14 +32,40 @@ def checkout(request):
                 )
 
             cart.clear()
+
             return redirect('success')
+
     else:
         form = CheckoutForm()
 
     return render(
-        request,'orders/checkout.html',
+        request,
+        'orders/checkout.html',
         {
             'form': form,
             'cart': cart
+        }
+    )
+
+
+def success(request):
+
+    return render(
+        request,
+        'orders/success.html'
+    )
+
+@login_required
+def profile_view(request):
+
+    orders = Order.objects.filter(
+        customer=request.user
+    ).order_by('-created_at')
+
+    return render(
+        request,
+        'users/profile.html',
+        {
+            'orders': orders
         }
     )

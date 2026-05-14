@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row">
+
+        <div class="col-lg-4 mb-4">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body">
+
+                    <h3 class="fw-bold mb-4">
+                        Профіль
+                    </h3>
+
+                    <p>
+                        <strong>Username:</strong>
+                        {{ request.user.username }}
+                    </p>
+
+                    <p>
+                        <strong>Email:</strong>
+                        {{ request.user.email }}
+                    </p>
+
+                    <p>
+                        <strong>Телефон:</strong>
+                        {{ request.user.phone }}
+                    </p>
+
+                    <a
+                        href="{% url 'logout' %}"
+                        class="btn btn-outline-dark w-100 mt-3"
+                    >
+                        Вийти
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body">
+
+                    <h3 class="fw-bold mb-4">
+                        Мої замовлення
+                    </h3>
+
+                    {% if orders %}
+
+                        <div class="table-responsive">
+
+                            <table class="table align-middle">
+
+                                <thead>
+
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Дата</th>
+                                        <th>Статус</th>
+                                        <th>Оплата</th>
+                                        <th>Сума</th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+
+                                    {% for order in orders %}
+
+                                    <tr>
+
+                                        <td>
+                                            #{{ order.id }}
+                                        </td>
+
+                                        <td>
+                                            {{ order.created_at|date:"d.m.Y H:i" }}
+                                        </td>
+
+                                        <td>
+
+                                            <span class="badge bg-dark">
+                                                {{ order.status }}
+                                            </span>
+
+                                        </td>
+
+                                        <td>
+
+                                            {% if order.paid %}
+
+                                                <span class="text-success">
+                                                    Оплачено
+                                                </span>
+
+                                            {% else %}
+
+                                                <span class="text-danger">
+                                                    Не оплачено
+                                                </span>
+
+                                            {% endif %}
+
+                                        </td>
+
+                                        <td>
+                                            {{ order.total_price }} грн
+                                        </td>
+
+                                    </tr>
+
+                                    {% endfor %}
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    {% else %}
+
+                        <p class="text-muted">
+                            У вас ще немає замовлень.
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

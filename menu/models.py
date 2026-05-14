@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils.html import mark_safe
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -21,6 +21,11 @@ class Product(models.Model):
 
     image = models.ImageField(upload_to='products/')
     available = models.BooleanField(default=True)
+
+    def image_preview(self):
+        if self.image:
+            return mark_safe(f'<img src="{self.image.url}" width=100px height=100px style="object-fit: cover;"/>')
+        return "Немає зображення"
 
     def __str__(self):
         return self.name
