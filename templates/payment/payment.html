@@ -1,16 +1,114 @@
-<form method="POST"
-      action="https://www.liqpay.ua/api/3/checkout">
+{% extends 'base.html' %}
 
-    <input type="hidden"
-           name="data"
-           value="{{ data }}">
+{% block content %}
 
-    <input type="hidden"
-           name="signature"
-           value="{{ signature }}">
+<div class="container py-5">
 
-    <button type="submit">
-        Pay
-    </button>
+    <div class="row justify-content-center">
 
-</form>
+        <div class="col-lg-5">
+
+            <div class="card border-0 shadow-sm rounded-3">
+
+                <!-- HEADER -->
+
+                <div class="card-header bg-white border-bottom text-center py-4">
+
+                    <h4 class="mb-1 fw-semibold">
+                        Оплата замовлення
+                    </h4>
+
+                    <small class="text-muted">
+                        Ви будете перенаправлені на безпечну сторінку LiqPay
+                    </small>
+
+                </div>
+
+                <!-- BODY -->
+
+                <div class="card-body p-4">
+
+                    <div class="mb-3">
+
+                        <div class="d-flex justify-content-between mb-2">
+
+                            <span class="text-muted">
+                                Платіжна система
+                            </span>
+
+                            <span class="fw-semibold">
+                                LiqPay
+                            </span>
+
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2">
+
+                            <span class="text-muted">
+                                Статус
+                            </span>
+
+                            <span class="text-success fw-semibold">
+                                Очікує оплати
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <p class="text-muted small mb-4">
+
+                        Натискаючи кнопку нижче, ви переходите на захищену сторінку оплати.
+                        Дані вашої картки не зберігаються на нашому сайті.
+
+                    </p>
+
+                    <form method="POST"
+                          action="https://www.liqpay.ua/api/3/checkout">
+
+                        <input type="hidden"
+                               name="data"
+                               value="{{ data }}">
+
+                        <input type="hidden"
+                               name="signature"
+                               value="{{ signature }}">
+
+                        <button type="submit"
+                                class="btn btn-dark w-100 py-2">
+
+                            Перейти до оплати
+
+                        </button>
+
+                    </form>
+
+                    <div class="text-center mt-3">
+
+                        <small class="text-muted">
+                            Підтримуються Visa / MasterCard
+                        </small>
+
+                    </div>
+
+                </div>
+
+                <!-- FOOTER -->
+
+                <div class="card-footer bg-white text-center small text-muted">
+
+                    Захищено SSL · Платіж обробляється LiqPay
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

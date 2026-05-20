@@ -1,50 +1,34 @@
-
 document.addEventListener('DOMContentLoaded', () => {
 
-    console.log('cart.js loaded');
+    document.addEventListener('click',  (e) => {
+        const addBtn = e.target.closest('.add-btn')
+        if (addBtn) {
 
-    document.addEventListener('click', async (e) => {
-
-        // =========================
-        // ADD
-        // =========================
-
-        if (e.target.classList.contains('add-btn')) {
-
-            const id = e.target.dataset.id;
+            const id = addBtn.dataset.id;
 
             increase(id);
         }
 
-        // =========================
-        // PLUS
-        // =========================
+        const plusBtn = e.target.closest('.plus-btn')
+        if (plusBtn) {
 
-        if (e.target.classList.contains('plus-btn')) {
-
-            const id = e.target.dataset.id;
+            const id = plusBtn.dataset.id;
 
             increase(id);
         }
 
-        // =========================
-        // MINUS
-        // =========================
+        const minusBtn = e.target.closest('.minus-btn')
+        if (minusBtn) {
 
-        if (e.target.classList.contains('minus-btn')) {
-
-            const id = e.target.dataset.id;
+            const id = minusBtn.dataset.id;
 
             decrease(id);
         }
 
-        // =========================
-        // REMOVE
-        // =========================
+        const removeBtn = e.target.closest('.remove-btn')
+        if (removeBtn) {
 
-        if (e.target.classList.contains('remove-btn')) {
-
-            const id = e.target.dataset.id;
+            const id = removeBtn.dataset.id;
 
             removeItem(id);
         }
@@ -53,15 +37,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-// =====================================
-// INCREASE
-// =====================================
 
 function increase(id) {
 
     fetch(`/cart/ajax/increase/${id}/`)
         .then(res => res.json())
         .then(data => {
+
+            if (!data.success) {
+                return;
+            }
 
             syncControls(id, data.quantity);
 
@@ -73,10 +58,6 @@ function increase(id) {
         });
 }
 
-
-// =====================================
-// DECREASE
-// =====================================
 
 function decrease(id) {
 
@@ -113,10 +94,6 @@ function decrease(id) {
 }
 
 
-// =====================================
-// REMOVE ITEM
-// =====================================
-
 function removeItem(id) {
 
     fetch(`/cart/ajax/remove/${id}/`)
@@ -142,9 +119,7 @@ function removeItem(id) {
 }
 
 
-// =====================================
 // SYNC CONTROLS
-// =====================================
 
 function syncControls(id, quantity) {
 
@@ -155,7 +130,7 @@ function syncControls(id, quantity) {
             let minus = '−';
 
             if (quantity === 1) {
-                minus = '🗑️';
+                minus = '<i class="bi bi-trash"></i>';
             }
 
             box.innerHTML = `
@@ -185,56 +160,49 @@ function syncControls(id, quantity) {
 }
 
 
-// =====================================
 // REMOVE PRODUCT
-// =====================================
 
 function removeProduct(id) {
 
     // MENU
-    document
-        .querySelectorAll(`.cart-controls-${id}`)
-        .forEach(box => {
+    const box = document.querySelector(`.cart-controls-${id}`)
+    if (box) {
 
-            box.innerHTML = `
-                <button
-                    class="add-btn btn btn-dark btn-sm"
-                    data-id="${id}"
-                >
-                    Додати
-                </button>
-            `;
-        });
+        box.innerHTML = `
+            <button
+                class="add-btn btn btn-dark btn-sm"
+                data-id="${id}"
+            >
+                Додати
+            </button>
+        `;
+    }
 
     // CART ROW
-    document
-        .querySelectorAll(`.cart-row-${id}`)
-        .forEach(row => {
+    const row = document.querySelector(`.cart-row-${id}`)
+    if (row) {
 
-            row.remove();
-        });
+        row.remove()
+
+    }
 }
 
 
-// =====================================
 // UPDATE ITEM TOTAL
-// =====================================
 
 function updateItemTotal(id, total) {
 
-    document
-        .querySelectorAll(`.item-total-${id}`)
-        .forEach(el => {
+    const el = document.querySelector(`.item-total-${id}`)
 
-            el.innerText = total;
-        });
+    if (el) {
+
+        el.innerText = total;
+
+    }
 }
 
 
-// =====================================
 // UPDATE TOTAL PRICE
-// =====================================
-
 function updateCartTotal(total) {
 
     const el = document.querySelector('#cart-total-price');
@@ -246,10 +214,7 @@ function updateCartTotal(total) {
 }
 
 
-// =====================================
 // UPDATE HEADER
-// =====================================
-
 function updateHeader(totalItems) {
 
     const badge = document.querySelector('#cart_total');

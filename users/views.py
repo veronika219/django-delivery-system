@@ -10,11 +10,12 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('index')
+            return redirect("index")
     else:
         form = RegisterForm()
 
-    return render(request, 'users/register.html', {'form': form})
+    return render(request, "users/register.html", {"form": form})
+
 
 def login_view(request):
     if request.method == "POST":
@@ -23,13 +24,13 @@ def login_view(request):
             user = form.get_user()
             login(request, user)
             if user.role == "driver":
-                return redirect('index')
+                return redirect("index")
     else:
         form = AuthenticationForm()
 
-    return render(request, 'users/login.html', {"form": form})
+    return render(request, "users/login.html", {"form": form})
+
 
 def logout_view(request):
     logout(request)
-    return redirect('index')
-
+    return redirect("index")

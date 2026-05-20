@@ -7,10 +7,10 @@ class CheckoutForm(forms.ModelForm):
         model = Order
 
         fields = [
-            'name',
-            'phone',
-            'address',
-            'comment',
-            'delivery_type',
-            'payment_method'
+            "name",
+            "phone",
+            "address",
+            "comment",
+            "delivery_type",
+            "payment_method",
         ]
