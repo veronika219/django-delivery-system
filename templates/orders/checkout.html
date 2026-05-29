@@ -2,116 +2,167 @@
 
 {% block content %}
 
+<style>
+.form-control,
+.form-select {
+    height: 48px;
+    border-radius: 12px;
+    font-size: 15px;
+    width: 100%; /* 🔥 ключове — тепер email не буде “малий” */
+}
+
+textarea.form-control {
+    height: auto !important;
+}
+
+.phone-input {
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+.email-input {
+    width: 100%;
+}
+
+label.form-label {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #6B8E23;
+    box-shadow: 0 0 0 0.15rem rgba(107, 142, 35, 0.15);
+}
+</style>
+
 <div class="container py-5">
 
     <div class="row justify-content-center">
 
         <div class="col-lg-8 col-xl-7">
 
-            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
 
                 <!-- HEADER -->
+                <div class="border-bottom bg-white px-4 px-md-5 py-4">
 
-                <div class="bg-dark text-white p-4">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
 
-                    <h1 class="fw-bold mb-1">
-                        Оформлення замовлення
-                    </h1>
+                        <div>
+                            <h1 class="fw-bold mb-1 fs-3">
+                                Оформлення замовлення
+                            </h1>
+                            <div class="text-muted">
+                                Вкажіть дані для підтвердження та доставки
+                            </div>
+                        </div>
 
-                    <p class="mb-0 text-light">
-                        Заповніть дані для підтвердження доставки
-                    </p>
+                        <div class="text-md-end">
+                            <div class="small text-muted mb-1">До сплати</div>
+                            <div class="fw-bold fs-4">{{ cart.get_total_price }} грн</div>
+                        </div>
+
+                    </div>
 
                 </div>
 
                 <!-- BODY -->
-
                 <div class="card-body p-4 p-md-5">
 
                     <form method="POST">
-
                         {% csrf_token %}
 
-                        <!-- ІМ’Я -->
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger rounded-3 mb-4">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
 
+                        <!-- NAME -->
                         <div class="mb-4">
-
-                            <label class="form-label fw-semibold">
-                                Ім’я
-                            </label>
-
+                            <label class="form-label">Ім’я та прізвище</label>
                             {{ form.name }}
-
                         </div>
 
-                        <!-- ТЕЛЕФОН -->
-
+                        <!-- PHONE -->
                         <div class="mb-4">
-
-                            <label class="form-label fw-semibold">
-                                Телефон
-                            </label>
-
+                            <label class="form-label">Номер телефону</label>
                             {{ form.phone }}
-
                         </div>
 
-                        <!-- АДРЕСА -->
-
+                        <!-- EMAIL (🔥 FIXED WIDTH) -->
                         <div class="mb-4">
+                            <label class="form-label">Email</label>
+                            {{ form.email }}
+                            <div class="small text-muted mt-2">
+                                На цю пошту буде надіслано інформацію про замовлення
+                            </div>
+                        </div>
 
-                            <label class="form-label fw-semibold">
-                                Адреса
-                            </label>
+                        <!-- DELIVERY -->
+                        <div class="mb-4">
+                            <label class="form-label mb-3">Спосіб отримання</label>
 
+                            <div class="row g-3">
+
+                                <div class="col-md-6">
+                                    <label class="border rounded-4 p-3 d-block h-100">
+                                        <input type="radio" name="delivery_type" value="DELIVERY" checked>
+                                        <span class="fw-semibold ms-2">Доставка</span>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="border rounded-4 p-3 d-block h-100">
+                                        <input type="radio" name="delivery_type" value="PICKUP">
+                                        <span class="fw-semibold ms-2">Самовивіз</span>
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- ADDRESS -->
+                        <div class="mb-4" id="address-wrapper">
+                            <label class="form-label">Адреса доставки</label>
                             {{ form.address }}
-
                         </div>
 
-                        <!-- КОМЕНТАР -->
-
+                        <!-- COMMENT -->
                         <div class="mb-4">
-
-                            <label class="form-label fw-semibold">
-                                Коментар
-                            </label>
-
+                            <label class="form-label">Коментар</label>
                             {{ form.comment }}
-
                         </div>
 
-                        <!-- DELIVERY + PAYMENT -->
+                        <!-- PAYMENT -->
+                        <div class="mb-4">
+                            <label class="form-label mb-3">Спосіб оплати</label>
 
-                        <div class="row">
+                            <div class="row g-3">
 
-                            <div class="col-md-6 mb-4">
+                                <div class="col-md-6">
+                                    <label class="border rounded-4 p-3 d-block h-100">
+                                        <input type="radio" name="payment_method" value="ONLINE">
+                                        <span class="fw-semibold ms-2">Онлайн</span>
+                                    </label>
+                                </div>
 
-                                <label class="form-label fw-semibold">
-                                    Тип отримання
-                                </label>
-
-                                {{ form.delivery_type }}
-
-                            </div>
-
-                            <div class="col-md-6 mb-4">
-
-                                <label class="form-label fw-semibold">
-                                    Оплата
-                                </label>
-
-                                {{ form.payment_method }}
+                                <div class="col-md-6">
+                                    <label class="border rounded-4 p-3 d-block h-100">
+                                        <input type="radio" name="payment_method" value="CASH" checked>
+                                        <span class="fw-semibold ms-2">Готівка</span>
+                                    </label>
+                                </div>
 
                             </div>
-
                         </div>
 
-                        <!-- BUTTON -->
-
-                        <button class="btn btn-dark btn-lg w-100 rounded-3 py-3 fw-semibold">
-
+                        <!-- SUBMIT -->
+                        <button class="btn btn-dark w-100 py-3 rounded-4 fw-semibold">
                             Підтвердити замовлення
-
                         </button>
 
                     </form>
@@ -125,5 +176,18 @@
     </div>
 
 </div>
+
+<script>
+const deliveryInputs = document.querySelectorAll('input[name="delivery_type"]');
+const addressWrapper = document.querySelector('#address-wrapper');
+
+function toggleAddress() {
+    const selected = document.querySelector('input[name="delivery_type"]:checked');
+    addressWrapper.style.display = selected.value === 'PICKUP' ? 'none' : 'block';
+}
+
+toggleAddress();
+deliveryInputs.forEach(i => i.addEventListener('change', toggleAddress));
+</script>
 
 {% endblock %}

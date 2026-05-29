@@ -1,0 +1,105 @@
+:root {
+    --accent: #6B8E23;
+    --accent-dark: #5a7a1f;
+    --text-muted: #7a7a7a;
+    --border: #e6e9e6;
+}
+
+.cart-empty-wrapper {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.cart-empty-card {
+    text-align: center;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.cart-empty-icon {
+    width: 78px;
+    height: 78px;
+    margin: 0 auto 16px;
+
+    border-radius: 50%;
+    background: rgba(107, 142, 35, 0.10);
+    border: 1px solid rgba(107, 142, 35, 0.2);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 28px;
+    color: var(--accent);
+}
+
+.cart-empty-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.cart-empty-text {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 18px;
+    line-height: 1.5;
+}
+
+.btn-accent {
+    background: var(--accent);
+    border: none;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-accent:hover {
+    background: var(--accent-dark);
+    color: #fff;
+}
+
+/* ===== CART WRAPPER (легкий апгрейд) ===== */
+
+.cart-wrapper {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+}
+
+/* total block */
+.cart-total-box {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fafafa;
+}
+
+/* DARK BUTTON (як ти просив) */
+.btn-checkout {
+    background: #111;
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s;
+    border: none;
+}
+
+.btn-checkout:hover {
+    background: #000;
+    color: #fff;
+}
+

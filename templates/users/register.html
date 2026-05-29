@@ -1,26 +1,107 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/register_style.css' %}">
+{% endblock %}
 
 {% block content %}
 
-<div class="container py-5" style="max-width:500px">
+<div class="container">
 
-    <h2 class="mb-4 text-center">Register</h2>
+    <div class="auth-wrapper">
 
-    <form method="post">
-        {% csrf_token %}
+        <div class="auth-card">
 
-        {{ form.as_p }}
+            <div class="auth-title">
+                Реєстрація
+            </div>
 
-        <button class="btn btn-dark w-100 mt-3">
-            Зареєструватися
-        </button>
+            <div class="auth-subtitle">
+                Створіть акаунт, щоб оформлювати замовлення
+            </div>
 
-    </form>
+            <form method="post">
 
-    <p class="text-center mt-3">
-        Вже є акаунт?
-        <a href="{% url 'login' %}">Вхід</a>
-    </p>
+                {% csrf_token %}
+
+                <!-- FIRST NAME -->
+                <label>Ім’я</label>
+                {{ form.first_name }}
+                {% if form.first_name.errors %}
+                    <div class="errorlist">
+                        {{ form.first_name.errors.0 }}
+                    </div>
+                {% endif %}
+
+                <!-- LAST NAME -->
+                <label>Прізвище</label>
+                {{ form.last_name }}
+                {% if form.last_name.errors %}
+                    <div class="errorlist">
+                        {{ form.last_name.errors.0 }}
+                    </div>
+                {% endif %}
+
+                <!-- EMAIL -->
+                <label>Email</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="errorlist">
+                        {{ form.email.errors.0 }}
+                    </div>
+                {% endif %}
+
+                <!-- PHONE -->
+                <label>Телефон</label>
+                {{ form.phone }}
+                {% if form.phone.errors %}
+                    <div class="errorlist">
+                        {{ form.phone.errors.0 }}
+                    </div>
+                {% endif %}
+
+                <!-- PASSWORD -->
+                <label>Пароль</label>
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                    <div class="errorlist">
+                        {{ form.password1.errors.0 }}
+                    </div>
+                {% endif %}
+
+                <!-- CONFIRM PASSWORD -->
+                <label>Підтвердження пароля</label>
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                    <div class="errorlist">
+                        {{ form.password2.errors.0 }}
+                    </div>
+                {% endif %}
+
+                <!-- NON FIELD ERRORS (наприклад: паролі не співпадають) -->
+                {% if form.non_field_errors %}
+                    <div class="error-box">
+                        {{ form.non_field_errors.0 }}
+                    </div>
+                {% endif %}
+
+                <button class="btn-accent">
+                    Зареєструватися
+                </button>
+
+            </form>
+
+            <div class="auth-footer">
+                Вже є акаунт?
+                <a href="{% url 'login' %}">
+                    Увійти
+                </a>
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 

@@ -8,76 +8,87 @@
 
         <div class="col-lg-5">
 
-            <div class="card border-0 shadow-sm rounded-3">
+            <div class="border rounded-4 bg-white shadow-sm overflow-hidden">
 
                 <!-- HEADER -->
 
-                <div class="card-header bg-white border-bottom text-center py-4">
+                <div class="p-4 border-bottom text-center">
 
-                    <h4 class="mb-1 fw-semibold">
+                    <div class="fw-bold fs-5 mb-1">
+
                         Оплата замовлення
-                    </h4>
 
-                    <small class="text-muted">
-                        Ви будете перенаправлені на безпечну сторінку LiqPay
-                    </small>
+                    </div>
+
+                    <div class="text-muted small">
+
+                        Безпечний перехід на сторінку LiqPay
+
+                    </div>
 
                 </div>
 
                 <!-- BODY -->
 
-                <div class="card-body p-4">
+                <div class="p-4">
 
-                    <div class="mb-3">
+                    <!-- INFO -->
+
+                    <div class="mb-4">
 
                         <div class="d-flex justify-content-between mb-2">
 
                             <span class="text-muted">
+
                                 Платіжна система
+
                             </span>
 
                             <span class="fw-semibold">
+
                                 LiqPay
+
                             </span>
 
                         </div>
 
-                        <div class="d-flex justify-content-between mb-2">
+                        <div class="d-flex justify-content-between">
 
                             <span class="text-muted">
+
                                 Статус
+
                             </span>
 
                             <span class="text-success fw-semibold">
-                                Очікує оплати
+
+                                Очікує оплату
+
                             </span>
 
                         </div>
 
                     </div>
 
-                    <hr>
+                    <hr class="my-4">
 
-                    <p class="text-muted small mb-4">
+                    <!-- WARNING -->
 
-                        Натискаючи кнопку нижче, ви переходите на захищену сторінку оплати.
-                        Дані вашої картки не зберігаються на нашому сайті.
+                    <div class="text-muted small mb-4" style="line-height: 1.6;">
 
-                    </p>
+                        Після натискання ви перейдете на захищену сторінку оплати.
+                        Дані картки не зберігаються на цьому сайті.
 
-                    <form method="POST"
-                          action="https://www.liqpay.ua/api/3/checkout">
+                    </div>
 
-                        <input type="hidden"
-                               name="data"
-                               value="{{ data }}">
+                    <!-- FORM -->
 
-                        <input type="hidden"
-                               name="signature"
-                               value="{{ signature }}">
+                    <form method="POST" action="https://www.liqpay.ua/api/3/checkout">
 
-                        <button type="submit"
-                                class="btn btn-dark w-100 py-2">
+                        <input type="hidden" name="data" value="{{ data }}">
+                        <input type="hidden" name="signature" value="{{ signature }}">
+
+                        <button type="submit" class="btn btn-dark w-100 py-3 rounded-3 fw-semibold">
 
                             Перейти до оплати
 
@@ -85,21 +96,17 @@
 
                     </form>
 
+                    <!-- FOOT NOTE -->
+
                     <div class="text-center mt-3">
 
-                        <small class="text-muted">
-                            Підтримуються Visa / MasterCard
-                        </small>
+                        <div class="text-muted small">
+
+                            Visa / Mastercard · Захищене з’єднання SSL
+
+                        </div>
 
                     </div>
-
-                </div>
-
-                <!-- FOOTER -->
-
-                <div class="card-footer bg-white text-center small text-muted">
-
-                    Захищено SSL · Платіж обробляється LiqPay
 
                 </div>
 

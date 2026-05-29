@@ -1,18 +1,30 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import CheckoutForm
-from .models import Order, OrderItem
-
+from .models import Order
+from .services import create_order, send_order_email
 from cart.cart import Cart
+from core.decorators import role_required, customer_or_guest_required
 
 
+def get_initial(user):
+    if not user.is_authenticated:
+        return {}
+
+    return {
+        "name": user.full_name,
+        "phone": user.phone or "+380",
+        "email": user.email,
+        "address": user.address,
+    }
+
+
+@customer_or_guest_required
 def checkout(request):
 
     cart = Cart(request)
 
-    # якщо корзина пуста
-    if not cart.cart:
+    if not cart.get_cart():
         return redirect("menu")
 
     if request.method == "POST":
@@ -21,84 +33,34 @@ def checkout(request):
 
         if form.is_valid():
 
-            order = form.save(commit=False)
+            order = create_order(request.user, form, cart)
+            send_order_email(order)
 
-            # авторизований користувач
-            if request.user.is_authenticated:
-                order.customer = request.user
-
-            order.save()
-
-            # =========================
-            # ORDER ITEMS
-            # =========================
-
-            for product in cart.get_products():
-
-                OrderItem.objects.create(
-                    order=order,
-                    product=product,
-                    quantity=cart.cart[str(product.id)]["quantity"],
-                    price=product.price,
-                )
-
-            # =========================
-            # LIQPAY
-            # =========================
-
+            # 🔥 PAYMENT FLOW
             if order.payment_method == "ONLINE":
-
-                return redirect(
-                    "liqpay",
-                    order_id=order.id
-                )
-
-            # =========================
-            # CASH / OTHER PAYMENT
-            # =========================
-
-            cart.clear()
+                return redirect("liqpay", order.id)
 
             return redirect("success")
 
     else:
-
-        form = CheckoutForm()
-
-    return render(
-        request,
-        "orders/checkout.html",
-        {
-            "form": form,
-            "cart": cart
-        }
-    )
+        form = CheckoutForm(initial=get_initial(request.user))
 
 
+    return render(request, "orders/checkout.html", {
+        "form": form,
+        "cart": cart
+    })
+
+
+@role_required("customer")
+def cancel_order(request, order_id):
+    order = get_object_or_404(Order, id=order_id, customer=request.user)
+
+    order.cancel(request.user)
+
+    return redirect("profile")
+
+@customer_or_guest_required
 def success(request):
+    return render(request, "orders/success.html")
 
-    return render(
-        request,
-        "orders/success.html"
-    )
-
-@property
-def total_price(self):
-    return sum(item.total_price for item in self.items.all())
-
-@login_required
-def profile_view(request):
-
-    orders = (
-        Order.objects
-        .filter(customer=request.user)
-        .order_by("-created_at")
-    )
-
-    return render(
-        request,
-        "users/profile.html",
-        {
-            "orders": orders
-        }
-    )

@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.conf import settings
 from liqpay import LiqPay
+
 from orders.models import Order
 
 
@@ -30,10 +31,6 @@ def liqpay(request, order_id):
     return render(
         request, "payment/payment.html", {"signature": signature, "data": data}
     )
-
-
-def payment_success(request):
-    return redirect("success")
 
 
 def payment_callback(request):

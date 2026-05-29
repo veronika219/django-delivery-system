@@ -1,0 +1,120 @@
+
+:root {
+    --accent: #6B8E23;
+    --accent-dark: #5a7a1f;
+    --text-muted: #7a7a7a;
+    --border: #e6e9e6;
+}
+
+.auth-wrapper {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 460px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.auth-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.auth-subtitle {
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    font-size: 14px;
+}
+
+label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+    text-align: left;
+}
+
+input {
+    width: 100%;
+    padding: 11px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    outline: none;
+    transition: 0.2s ease;
+    margin-bottom: 14px;
+}
+
+input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(110,170,94,0.12);
+}
+
+.btn-accent {
+    width: 100%;
+    background: var(--accent);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 12px;
+    margin-top: 10px;
+    transition: 0.2s ease;
+}
+
+.btn-accent:hover {
+    background: var(--accent-dark);
+}
+
+.auth-footer {
+    margin-top: 18px;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.auth-footer a {
+    color: var(--accent-dark);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+.error-box {
+    background: #fff3f3;
+    border: 1px solid #f5c2c7;
+    color: #842029;
+
+    padding: 10px 12px;
+    border-radius: 10px;
+
+    font-size: 13px;
+    margin-bottom: 14px;
+
+    text-align: left;
+}
+
+.errorlist {
+    list-style: none;
+    padding: 0;
+    margin: 6px 0 0;
+    color: #d9534f;
+    font-size: 13px;
+    text-align: left;
+}
+
+.helptext,
+form ul {
+    display: none;
+}

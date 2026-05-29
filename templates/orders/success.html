@@ -2,30 +2,183 @@
 
 {% block content %}
 
-<div class="container py-5">
+<style>
+    :root {
+        --accent: #6B8E23;
+        --accent-dark: #5a7a1f;
+        --border: #e9ece8;
+        --text-muted: #777;
+    }
 
-    <div class="text-center">
+    .success-wrapper {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 0;
+    }
 
-        <div class="success-icon mb-4">
-            ✓
+    .success-card {
+        width: 100%;
+        max-width: 560px;
+
+        background: #fff;
+
+        border: 1px solid var(--border);
+        border-radius: 18px;
+
+        padding: 42px;
+
+        text-align: center;
+
+        box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+    }
+
+    .success-icon {
+        width: 78px;
+        height: 78px;
+
+        margin: 0 auto 24px;
+
+        border-radius: 50%;
+
+        background: rgba(107, 142, 35, 0.12);
+
+        color: var(--accent);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 34px;
+        font-weight: 700;
+    }
+
+    .success-title {
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 14px;
+        color: #222;
+    }
+
+    .success-subtitle {
+        color: var(--text-muted);
+        font-size: 15px;
+        line-height: 1.7;
+        margin-bottom: 34px;
+    }
+
+    .success-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .btn-accent {
+        background: var(--accent);
+        color: #fff;
+
+        border: none;
+        border-radius: 12px;
+
+        padding: 13px;
+
+        font-weight: 600;
+
+        transition: 0.2s ease;
+    }
+
+    .btn-accent:hover {
+        background: var(--accent-dark);
+        color: #fff;
+    }
+
+    .btn-outline-custom {
+        background: #fff;
+        color: #222;
+
+        border: 1px solid var(--border);
+        border-radius: 12px;
+
+        padding: 13px;
+
+        font-weight: 600;
+
+        transition: 0.2s ease;
+    }
+
+    .btn-outline-custom:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        background: #fafcf8;
+    }
+
+    @media (max-width: 576px) {
+
+        .success-card {
+            padding: 34px 22px;
+        }
+
+        .success-title {
+            font-size: 26px;
+        }
+
+    }
+</style>
+
+<div class="container">
+
+    <div class="success-wrapper">
+
+        <div class="success-card">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <div class="success-title">
+                Замовлення оформлено
+            </div>
+
+            <div class="success-subtitle">
+
+                Квитанцію з деталями замовлення надіслано на ваш email.
+
+                {% if request.user.is_authenticated %}
+
+                    Ви також можете переглядати статус замовлення у своєму профілі.
+
+                {% else %}
+
+                    Найближчим часом з вами зв’яжеться оператор для підтвердження.
+
+                {% endif %}
+
+            </div>
+
+            <div class="success-actions">
+
+                {% if request.user.is_authenticated %}
+
+                    <a
+                        href="{% url 'profile' %}"
+                        class="btn btn-accent"
+                    >
+                        Мої замовлення
+                    </a>
+
+                {% endif %}
+
+                <a
+                    href="{% url 'menu' %}"
+                    class="btn btn-outline-custom"
+                >
+                    Повернутися до меню
+                </a>
+
+            </div>
+
         </div>
-
-        <h1 class="fw-bold mb-4">
-            Замовлення успішно оформлено
-        </h1>
-
-        <p class="lead mb-5">
-
-            Дякуємо за ваше замовлення
-
-        </p>
-
-        <a
-                href="{% url 'menu' %}"
-                class="btn btn-dark btn-lg"
-        >
-            Повернутись до меню
-        </a>
 
     </div>
 

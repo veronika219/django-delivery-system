@@ -4,34 +4,34 @@
 
 {% block content %}
 
-<div class="container py-5">
-
-    <h1 class="mb-4 fw-bold">Меню</h1>
+<div class="container pt-4 pb-5">
 
     <form method="GET" class="mb-4">
-        <div class="input-group shadow-sm">
+        <div class="search-wrapper">
             <input type="text"
                    name="q"
                    value="{{ request.GET.q }}"
-                   class="form-control"
+                   class="form-control search-input"
                    placeholder="Пошук страв...">
 
-            <button class="btn btn-dark">Пошук</button>
+            <button class="search-btn">Пошук</button>
         </div>
     </form>
 
-    <div class="d-flex flex-wrap gap-2 mb-5">
-        <a href="{% url 'menu' %}"
-           class="btn {% if not active_category %}btn-dark{% else %}btn-outline-dark{% endif %}">
-            Усі
-        </a>
+    <div class="category-bar">
 
-        {% for category in categories %}
-            <a href="{% url 'category_view' category.id %}"
-               class="btn {% if active_category and active_category.id == category.id %}btn-dark{% else %}btn-outline-dark{% endif %}">
-                {{ category.name }}
-            </a>
-        {% endfor %}
+    <a href="{% url 'menu' %}"
+       class="category-btn {% if not active_category %}active{% endif %}">
+        Усі
+    </a>
+
+    {% for category in categories %}
+        <a href="{% url 'category_view' category.id %}"
+           class="category-btn {% if active_category and active_category.id == category.id %}active{% endif %}">
+            {{ category.name }}
+        </a>
+    {% endfor %}
+
     </div>
 
     <div class="row g-4">
@@ -67,10 +67,16 @@
 
                                     <button class="minus-btn btn btn-outline-dark btn-sm"
                                             data-id="{{ product.id }}">
-                                        -
+
+                                        {% if cart|get_item:product.id == 1 %}
+                                            <i class="bi bi-trash"></i>
+                                        {% else %}
+                                            −
+                                        {% endif %}
+
                                     </button>
 
-                                    <span class="quantity-{{ product.id }}">
+                                    <span class="quantity-{{ product.id }} fw-bold">
                                         {{ cart|get_item:product.id }}
                                     </span>
 
@@ -83,7 +89,7 @@
 
                             {% else %}
 
-                                <button class="add-btn btn btn-dark btn-sm"
+                                <button class="btn-primary-custom add-btn"
                                         data-id="{{ product.id }}">
                                     Додати
                                 </button>

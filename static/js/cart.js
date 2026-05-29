@@ -170,7 +170,7 @@ function removeProduct(id) {
 
         box.innerHTML = `
             <button
-                class="add-btn btn btn-dark btn-sm"
+                class="add-btn btn-primary-custom"
                 data-id="${id}"
             >
                 Додати

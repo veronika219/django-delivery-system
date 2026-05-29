@@ -25,6 +25,7 @@ def menu(request):
             "active_category": None,
             "cart": cart.get_cart(),
             "cart_total_item": cart.get_total_items(),
+            "cart_ids": list(cart.get_cart().keys()),
         },
     )
 
@@ -51,6 +52,7 @@ def category_view(request, category_id):
         {
             "categories": categories,
             "products": products,
+            "cart": cart.get_cart(),
             "active_category": category,
             "cart_ids": list(cart.get_cart().keys()),
             "cart_total_item": cart.get_total_items(),

@@ -1,26 +1,79 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/login_style.css' %}">
+{% endblock %}
 
 {% block content %}
 
-<div class="container py-5" style="max-width:500px">
+<div class="container">
 
-    <h2 class="mb-4 text-center">Login</h2>
+    <div class="auth-wrapper">
 
-    <form method="post">
-        {% csrf_token %}
+        <div class="auth-card">
 
-        {{ form.as_p }}
+            <div class="auth-title">
+                Увійти
+            </div>
 
-        <button class="btn btn-dark w-100 mt-3">
-            Увійти
-        </button>
+            <div class="auth-subtitle">
+                Увійдіть, щоб переглянути статус замовлень
+            </div>
 
-    </form>
+            <form method="post">
 
-    <p class="text-center mt-3">
-        Немає акаунта?
-        <a href="{% url 'register' %}">Реєстрація</a>
-    </p>
+                {% csrf_token %}
+
+                <!-- GLOBAL ERROR -->
+                {% if form.non_field_errors %}
+                    <div class="error-box">
+                        {% for error in form.non_field_errors %}
+                            <div>{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <!-- EMAIL -->
+                <label>Email</label>
+                {{ form.username }}
+
+                {% if form.username.errors %}
+                    <div class="errorlist">
+                        {% for error in form.username.errors %}
+                            <div>{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <!-- PASSWORD -->
+                <label>Пароль</label>
+                {{ form.password }}
+
+                {% if form.password.errors %}
+                    <div class="errorlist">
+                        {% for error in form.password.errors %}
+                            <div>{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <button class="btn-accent">
+                    Увійти
+                </button>
+
+            </form>
+
+            <div class="auth-footer">
+                Ще не маєте акаунта?
+                <a href="{% url 'register' %}">
+                    Створити акаунт
+                </a>
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 

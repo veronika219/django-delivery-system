@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     "menu",
     "cart",
     "orders",
-    "delivery",
     "payment",
+    "panels",
 ]
 
 MIDDLEWARE = [
@@ -110,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "uk"
 
 TIME_ZONE = "UTC"
 
@@ -134,3 +134,8 @@ SESSION_ENGINE = "django.contrib.sessions.backends.db"
 
 LIQPAY_PUBLIC_KEY = "sandbox_i47723974352"
 LIQPAY_PRIVATE_KEY = "sandbox_uJ6eGbt2Wah5fGygjADmVWzBtl227UEhnNYNmuuD"
+
+# EMAIL
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+DEFAULT_FROM_EMAIL = "no-reply@restaurant.local"

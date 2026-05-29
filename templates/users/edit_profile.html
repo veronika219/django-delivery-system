@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container py-5" style="max-width: 600px">
+
+    <h3 class="mb-4">Редагування профілю</h3>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {# GLOBAL ERRORS #}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <!-- FIRST NAME -->
+        <div class="mb-3">
+
+            <label class="form-label">Ім'я</label>
+
+            {{ form.first_name }}
+
+            {% if form.first_name.errors %}
+                <div class="text-danger small mt-1">
+                    {{ form.first_name.errors.0 }}
+                </div>
+            {% endif %}
+
+        </div>
+
+        <!-- LAST NAME -->
+        <div class="mb-3">
+
+            <label class="form-label">Прізвище</label>
+
+            {{ form.last_name }}
+
+            {% if form.last_name.errors %}
+                <div class="text-danger small mt-1">
+                    {{ form.last_name.errors.0 }}
+                </div>
+            {% endif %}
+
+        </div>
+
+        <!-- PHONE -->
+        <div class="mb-3">
+
+            <label class="form-label">Телефон</label>
+
+            {{ form.phone }}
+
+            {% if form.phone.errors %}
+                <div class="text-danger small mt-1">
+                    {{ form.phone.errors.0 }}
+                </div>
+            {% endif %}
+
+        </div>
+
+        <!-- ADDRESS -->
+        <div class="mb-3">
+
+            <label class="form-label">Адреса</label>
+
+            {{ form.address }}
+
+            {% if form.address.errors %}
+                <div class="text-danger small mt-1">
+                    {{ form.address.errors.0 }}
+                </div>
+            {% endif %}
+
+        </div>
+
+        <!-- BUTTON -->
+        <button class="btn btn-dark w-100">
+            Зберегти зміни
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

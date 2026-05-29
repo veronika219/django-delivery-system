@@ -1,9 +1,12 @@
 from django.shortcuts import render, reverse
 from django.http import JsonResponse, HttpRequest, HttpResponse
 from .cart import Cart
+from core.decorators import role_required, customer_or_guest_required
 
 
+@customer_or_guest_required
 def cart_detail(request: HttpRequest) -> HttpResponse:
+
     cart = Cart(request)
 
     products = []
@@ -25,7 +28,7 @@ def cart_detail(request: HttpRequest) -> HttpResponse:
         },
     )
 
-
+@customer_or_guest_required
 def ajax_increase(request, product_id):
 
     cart = Cart(request)
@@ -49,7 +52,7 @@ def ajax_increase(request, product_id):
         }
     )
 
-
+@customer_or_guest_required
 def ajax_decrease(request, product_id):
 
     cart = Cart(request)
@@ -102,7 +105,7 @@ def ajax_decrease(request, product_id):
         }
     )
 
-
+@customer_or_guest_required
 def ajax_remove(request, product_id):
 
     cart = Cart(request)

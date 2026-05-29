@@ -1,28 +1,128 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
-<section class="hero">
+<style>
+.navbar-custom { display: none; }
+</style>
 
-    <div class="container text-center">
+<div class="container py-5">
 
-        <h1 class="display-3 fw-bold mb-4">
-            Смачні страви з доставкою
-        </h1>
 
-        <p class="lead mb-4">
-            Замовляйте онлайн швидко та зручно
-        </p>
+    <!-- TOP CARD -->
+    <div class="top-card mb-4">
 
-        <a
-                href="{% url 'menu' %}"
-                class="btn btn-warning btn-lg"
-        >
-            Перейти до меню
-        </a>
+        <div class="top-card-left">
+
+            <div class="logo-box"></div>
+
+            <div>
+                <div class="brand-title">Bite & Brew</div>
+                <div class="brand-subtitle">
+                    Дніпро, вул. Січових Стрільців, 12
+                </div>
+            </div>
+
+        </div>
 
     </div>
 
-</section>
+
+    <div class="row g-4">
+
+
+        <!-- LEFT SIDE -->
+        <div class="col-lg-5">
+
+
+            <!-- MENU BLOCK -->
+            <div class="card-box">
+
+                <div class="card-title">Розділи меню</div>
+
+                <a href="{% url 'menu' %}" class="list-item">
+                    <span>Меню</span>
+                    <span class="arrow">›</span>
+                </a>
+
+                <a href="{% url 'menu' %}?type=drinks" class="list-item">
+                    <span>Напої</span>
+                    <span class="arrow">›</span>
+                </a>
+
+            </div>
+
+
+            <!-- QUICK ACTION -->
+            <div class="card-box mt-4">
+
+                <div class="card-title">Швидкий доступ</div>
+
+                <a href="{% url 'menu' %}" class="primary-action">
+                    Перейти до замовлення
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+        <div class="col-lg-7">
+
+
+            <div class="card-box">
+
+                <div class="card-title">Про заклад</div>
+
+                <div class="text-block">
+                    Твоє місце щоденних зустрічей, де завжди смачно, щиро й по-справжньому.
+                </div>
+
+                <div class="text-block">
+                    Тут сніданки, улюблені страви, фалафель.
+                    Смаки Близького Сходу з сучасною подачею та простим підходом.
+                </div>
+
+                <div class="text-block">
+                    Bite & Brew — це кафе про щоденну їжу без зайвих ускладнень.
+                </div>
+
+
+                <div class="divider"></div>
+
+
+                <div class="info-row">
+                    <div class="label">Адреса</div>
+                    <div class="value">Дніпро, вул. Січових Стрільців, 12</div>
+                </div>
+
+                <div class="info-row">
+                    <div class="label">Робочі години</div>
+                    <div class="value">
+                        Пн–Пт 10:00 — 22:00<br>
+                        Сб–Нд 10:00 — 22:00
+                    </div>
+                </div>
+
+                <div class="info-row">
+                    <div class="label">Телефон</div>
+                    <div class="value">+380 93 92 22 323</div>
+                </div>
+
+                <div class="info-row">
+                    <div class="label">Телефон</div>
+                    <div class="value">+380 66 07 74 767</div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}
